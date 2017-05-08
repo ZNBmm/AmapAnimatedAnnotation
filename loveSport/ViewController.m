@@ -10,11 +10,9 @@
 #import <MAMapKit/MAMapKit.h>
 @interface ViewController ()<MAMapViewDelegate>
 {
-    CLLocationCoordinate2D coords1[5];
-    CLLocationCoordinate2D coords2[6];
-    CLLocationCoordinate2D coords3[10];//五角星
+    CLLocationCoordinate2D coords1[1];
 }
-
+@property (strong, nonatomic) NSArray *dataArr;
 ///地图
 @property (nonatomic, strong) MAMapView *mapView;
 ///支持动画效果的点标注
@@ -25,7 +23,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initCoordinates];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"anno.plist" ofType:nil];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSLog(@"%@",dict[@"Data"]);
+    self.dataArr = dict[@"Data"];
     
     self.mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -33,59 +35,38 @@
     [self.view addSubview:self.mapView];
     
     
+    
     //add overlay
-    MAPolyline *polyline1 = [MAPolyline polylineWithCoordinates:coords1 count:sizeof(coords1) / sizeof(coords1[0])];
-    MAPolyline *polyline2 = [MAPolyline polylineWithCoordinates:coords2 count:sizeof(coords2) / sizeof(coords2[0])];
-    MAPolyline *polyline3 = [MAPolyline polylineWithCoordinates:coords3 count:sizeof(coords3) / sizeof(coords3[0])];
-    [self.mapView addOverlays:@[polyline1, polyline2, polyline3]];
+   
+    [self initCoordinates];
     
     MAAnimatedAnnotation *anno = [[MAAnimatedAnnotation alloc] init];
     anno.title = @"znb";
     anno.coordinate = coords1[0];
     self.annotation = anno;
-    
+    [self.mapView setSelectedAnnotations:@[anno]];
     [self.mapView addAnnotation:self.annotation];
     
     [self initButton];
 }
 - (void)initCoordinates {
-    ///1
-    coords1[0].latitude = 39.852136;
-    coords1[0].longitude = 116.30095;
     
-    coords1[1].latitude = 39.852136;
-    coords1[1].longitude = 116.40095;
+    CLLocationCoordinate2D coords[self.dataArr.count];
     
-    coords1[2].latitude = 39.932136;
-    coords1[2].longitude = 116.40095;
-    
-    coords1[3].latitude = 39.932136;
-    coords1[3].longitude = 116.40095;
-    
-    coords1[4].latitude = 39.982136;
-    coords1[4].longitude = 116.48095;
-    
-    ///2
-    coords2[0].latitude = 39.982136;
-    coords2[0].longitude = 116.48095;
-    
-    coords2[1].latitude = 39.832136;
-    coords2[1].longitude = 116.42095;
-    
-    coords2[2].latitude = 39.902136;
-    coords2[2].longitude = 116.42095;
-    
-    coords2[3].latitude = 39.902136;
-    coords2[3].longitude = 116.44095;
-    
-    coords2[4].latitude = 39.932136;
-    coords2[4].longitude = 116.44095;
+    for (int i = 0; i < self.dataArr.count; i++) {
+        NSDictionary *dict= self.dataArr[i];
+        if (i==0) {
+            coords1[0].latitude = [dict[@"latitude"] doubleValue];
+            coords1[0].longitude = [dict[@"longitude"] doubleValue];
+        }
+        coords[i].latitude = [dict[@"latitude"] doubleValue];
+        coords[i].longitude = [dict[@"longitude"] doubleValue];
+
+    }
+    MAPolyline *polyline1 = [MAPolyline polylineWithCoordinates:coords count:sizeof(coords) / sizeof(coords[0])];
+    [self.mapView addOverlays:@[polyline1]];
     
     
-    ///3
-    [self generateStarPoints:coords3 pointsCount:10 atCenter:CLLocationCoordinate2DMake(39.800892, 116.293413)];//生成多角星的坐标
-    
-    coords2[5] = coords3[0];
 }
 
 - (void)initButton
@@ -104,43 +85,26 @@
     [button2 addTarget:self action:@selector(button2) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button2];
 }
-/*!
- @brief  生成多角星坐标
- @param coordinates 输出的多角星坐标数组指针。内存需在外申请，方法内不释放，多角星坐标结果输出。
- @param pointsCount 输出的多角星坐标数组元素个数。
- @param starCenter  多角星的中心点位置。
- */
-- (void)generateStarPoints:(CLLocationCoordinate2D *)coordinates pointsCount:(NSUInteger)pointsCount atCenter:(CLLocationCoordinate2D)starCenter
-{
-#define STAR_RADIUS 0.05
-#define PI 3.1415926
-    NSUInteger starRaysCount = pointsCount / 2;
-    for (int i =0; i<starRaysCount; i++)
-    {
-        float angle = 2.f*i/starRaysCount*PI;
-        int index = 2 * i;
-        coordinates[index].latitude = STAR_RADIUS* sin(angle) + starCenter.latitude;
-        coordinates[index].longitude = STAR_RADIUS* cos(angle) + starCenter.longitude;
-        
-        index++;
-        angle = angle + (float)1.f/starRaysCount*PI;
-        coordinates[index].latitude = STAR_RADIUS/2.f* sin(angle) + starCenter.latitude;
-        coordinates[index].longitude = STAR_RADIUS/2.f* cos(angle) + starCenter.longitude;
-    }
-}
+
 - (void)button1 {
+    
     self.annotation.coordinate = coords1[0];
-    
     MAAnimatedAnnotation *anno = self.annotation;
-    [anno addMoveAnimationWithKeyCoordinates:coords1 count:sizeof(coords1) / sizeof(coords1[0]) withDuration:2 withName:nil completeCallback:^(BOOL isFinished) {
-    }];
+    CLLocationCoordinate2D coords[1];
+    __weak __typeof(anno) WeakAnno = anno;
+     NSDictionary *dict= self.dataArr[0];
+      anno.title = dict[@"speed"];
+    for (int i = 1; i < self.dataArr.count; i++) {
+        NSDictionary *dict= self.dataArr[i];
+        coords[0].latitude = [dict[@"latitude"] doubleValue];
+        coords[0].longitude = [dict[@"longitude"] doubleValue];
+        [anno addMoveAnimationWithKeyCoordinates:coords count:sizeof(coords) / sizeof(coords[0]) withDuration:1 withName:nil completeCallback:^(BOOL isFinished) {
+            WeakAnno.title = dict[@"speed"];
+        }];
+    }
     
-    [anno addMoveAnimationWithKeyCoordinates:coords2 count:sizeof(coords2) / sizeof(coords2[0]) withDuration:2 withName:nil completeCallback:^(BOOL isFinished) {
-    }];
     
-    
-    [anno addMoveAnimationWithKeyCoordinates:coords3 count:sizeof(coords3) / sizeof(coords3[0]) withDuration:2 withName:nil completeCallback:^(BOOL isFinished) {
-    }];
+   
 }
 
 - (void)button2 {
@@ -184,8 +148,9 @@
         annotationView.canShowCallout               = YES;
         annotationView.animatesDrop                 = NO;
         annotationView.draggable                    = NO;
-        annotationView.rightCalloutAccessoryView    = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        
+        annotationView.rightCalloutAccessoryView    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pop"]];
+    
+        [annotationView setSelected:YES animated:NO];
         return annotationView;
     }
     

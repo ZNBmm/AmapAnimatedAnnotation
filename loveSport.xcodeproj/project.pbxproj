@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04205BEF1EC06503006AE5AE /* anno.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04205BEE1EC06503006AE5AE /* anno.plist */; };
 		0478DC641E934EF900B444B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478DC631E934EF900B444B9 /* main.m */; };
 		0478DC671E934EF900B444B9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478DC661E934EF900B444B9 /* AppDelegate.m */; };
 		0478DC6A1E934EF900B444B9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478DC691E934EF900B444B9 /* ViewController.m */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04205BEE1EC06503006AE5AE /* anno.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = anno.plist; sourceTree = "<group>"; };
 		0478DC5F1E934EF900B444B9 /* loveSport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = loveSport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0478DC631E934EF900B444B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0478DC651E934EF900B444B9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				0478DC701E934EF900B444B9 /* LaunchScreen.storyboard */,
 				0478DC731E934EF900B444B9 /* Info.plist */,
 				0478DC621E934EF900B444B9 /* Supporting Files */,
+				04205BEE1EC06503006AE5AE /* anno.plist */,
 			);
 			path = loveSport;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04205BEF1EC06503006AE5AE /* anno.plist in Resources */,
 				0478DC721E934EF900B444B9 /* LaunchScreen.storyboard in Resources */,
 				0478DC6F1E934EF900B444B9 /* Assets.xcassets in Resources */,
 				0478DC6D1E934EF900B444B9 /* Main.storyboard in Resources */,
@@ -389,6 +393,7 @@
 				0478DC781E934EF900B444B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
