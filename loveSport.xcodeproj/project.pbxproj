@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		04205BEF1EC06503006AE5AE /* anno.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04205BEE1EC06503006AE5AE /* anno.plist */; };
+		045108471EF8F5F6004A15DD /* CustomAnnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045108461EF8F5F6004A15DD /* CustomAnnotationViewController.m */; };
+		0451084A1EF8F653004A15DD /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 045108491EF8F653004A15DD /* CustomAnnotation.m */; };
+		0451084E1EF8F795004A15DD /* CustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451084D1EF8F795004A15DD /* CustomCalloutView.m */; };
+		045108511EF8F7B8004A15DD /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 045108501EF8F7B8004A15DD /* CustomAnnotationView.m */; };
+		045108551EF8FCC2004A15DD /* CustomCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045108541EF8FCC2004A15DD /* CustomCalloutView.xib */; };
+		0451085A1EF908A0004A15DD /* MovingAnnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045108591EF908A0004A15DD /* MovingAnnotationViewController.m */; };
 		0478DC641E934EF900B444B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478DC631E934EF900B444B9 /* main.m */; };
 		0478DC671E934EF900B444B9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478DC661E934EF900B444B9 /* AppDelegate.m */; };
 		0478DC6A1E934EF900B444B9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0478DC691E934EF900B444B9 /* ViewController.m */; };
@@ -19,6 +25,18 @@
 
 /* Begin PBXFileReference section */
 		04205BEE1EC06503006AE5AE /* anno.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = anno.plist; sourceTree = "<group>"; };
+		045108451EF8F5F6004A15DD /* CustomAnnotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotationViewController.h; sourceTree = "<group>"; };
+		045108461EF8F5F6004A15DD /* CustomAnnotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationViewController.m; sourceTree = "<group>"; };
+		045108481EF8F653004A15DD /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
+		045108491EF8F653004A15DD /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
+		0451084B1EF8F6A4004A15DD /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		0451084C1EF8F795004A15DD /* CustomCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCalloutView.h; sourceTree = "<group>"; };
+		0451084D1EF8F795004A15DD /* CustomCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCalloutView.m; sourceTree = "<group>"; };
+		0451084F1EF8F7B8004A15DD /* CustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotationView.h; sourceTree = "<group>"; };
+		045108501EF8F7B8004A15DD /* CustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
+		045108541EF8FCC2004A15DD /* CustomCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCalloutView.xib; sourceTree = "<group>"; };
+		045108581EF908A0004A15DD /* MovingAnnotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingAnnotationViewController.h; sourceTree = "<group>"; };
+		045108591EF908A0004A15DD /* MovingAnnotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovingAnnotationViewController.m; sourceTree = "<group>"; };
 		0478DC5F1E934EF900B444B9 /* loveSport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = loveSport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0478DC631E934EF900B444B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0478DC651E934EF900B444B9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -46,6 +64,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		045108411EF8F5CA004A15DD /* CustomCalloutView */ = {
+			isa = PBXGroup;
+			children = (
+				045108421EF8F5CA004A15DD /* Controller */,
+				045108431EF8F5CA004A15DD /* Model */,
+				045108441EF8F5CA004A15DD /* View */,
+			);
+			path = CustomCalloutView;
+			sourceTree = "<group>";
+		};
+		045108421EF8F5CA004A15DD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				045108451EF8F5F6004A15DD /* CustomAnnotationViewController.h */,
+				045108461EF8F5F6004A15DD /* CustomAnnotationViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		045108431EF8F5CA004A15DD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				045108481EF8F653004A15DD /* CustomAnnotation.h */,
+				045108491EF8F653004A15DD /* CustomAnnotation.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		045108441EF8F5CA004A15DD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0451084C1EF8F795004A15DD /* CustomCalloutView.h */,
+				0451084D1EF8F795004A15DD /* CustomCalloutView.m */,
+				045108541EF8FCC2004A15DD /* CustomCalloutView.xib */,
+				0451084F1EF8F7B8004A15DD /* CustomAnnotationView.h */,
+				045108501EF8F7B8004A15DD /* CustomAnnotationView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		045108561EF9088B004A15DD /* MovingAnnotationViewController(点平滑移动) */ = {
+			isa = PBXGroup;
+			children = (
+				045108571EF9088B004A15DD /* Controller */,
+			);
+			path = "MovingAnnotationViewController(点平滑移动)";
+			sourceTree = "<group>";
+		};
+		045108571EF9088B004A15DD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				045108581EF908A0004A15DD /* MovingAnnotationViewController.h */,
+				045108591EF908A0004A15DD /* MovingAnnotationViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		0478DC561E934EF900B444B9 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +142,8 @@
 		0478DC611E934EF900B444B9 /* loveSport */ = {
 			isa = PBXGroup;
 			children = (
+				045108561EF9088B004A15DD /* MovingAnnotationViewController(点平滑移动) */,
+				045108411EF8F5CA004A15DD /* CustomCalloutView */,
 				0478DC651E934EF900B444B9 /* AppDelegate.h */,
 				0478DC661E934EF900B444B9 /* AppDelegate.m */,
 				0478DC681E934EF900B444B9 /* ViewController.h */,
@@ -85,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				0478DC631E934EF900B444B9 /* main.m */,
+				0451084B1EF8F6A4004A15DD /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -171,6 +249,7 @@
 				04205BEF1EC06503006AE5AE /* anno.plist in Resources */,
 				0478DC721E934EF900B444B9 /* LaunchScreen.storyboard in Resources */,
 				0478DC6F1E934EF900B444B9 /* Assets.xcassets in Resources */,
+				045108551EF8FCC2004A15DD /* CustomCalloutView.xib in Resources */,
 				0478DC6D1E934EF900B444B9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,7 +309,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0451084E1EF8F795004A15DD /* CustomCalloutView.m in Sources */,
+				0451084A1EF8F653004A15DD /* CustomAnnotation.m in Sources */,
+				0451085A1EF908A0004A15DD /* MovingAnnotationViewController.m in Sources */,
+				045108471EF8F5F6004A15DD /* CustomAnnotationViewController.m in Sources */,
 				0478DC6A1E934EF900B444B9 /* ViewController.m in Sources */,
+				045108511EF8F7B8004A15DD /* CustomAnnotationView.m in Sources */,
 				0478DC671E934EF900B444B9 /* AppDelegate.m in Sources */,
 				0478DC641E934EF900B444B9 /* main.m in Sources */,
 			);
@@ -351,11 +435,13 @@
 			baseConfigurationReference = 61E6D3A6DF22FDC1DFB0F8B6 /* Pods-loveSport.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = B3R5RSW6TE;
+				GCC_PREFIX_HEADER = loveSport/PrefixHeader.pch;
 				INFOPLIST_FILE = loveSport/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.znb.loveSport;
+				PRODUCT_BUNDLE_IDENTIFIER = com.znb.loveSpor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -365,11 +451,13 @@
 			baseConfigurationReference = C183C542B2A38503DAD68053 /* Pods-loveSport.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = B3R5RSW6TE;
+				GCC_PREFIX_HEADER = loveSport/PrefixHeader.pch;
 				INFOPLIST_FILE = loveSport/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.znb.loveSport;
+				PRODUCT_BUNDLE_IDENTIFIER = com.znb.loveSpor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

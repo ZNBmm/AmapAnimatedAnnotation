@@ -7,154 +7,67 @@
 //
 
 #import "ViewController.h"
-#import <MAMapKit/MAMapKit.h>
-@interface ViewController ()<MAMapViewDelegate>
-{
-    CLLocationCoordinate2D coords1[1];
-}
-@property (strong, nonatomic) NSArray *dataArr;
-///地图
-@property (nonatomic, strong) MAMapView *mapView;
-///支持动画效果的点标注
-@property (nonatomic, strong) MAAnimatedAnnotation* annotation;
+#import "MovingAnnotationViewController.h"
+#import "CustomAnnotationViewController.h"
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (weak, nonatomic) UITableView *tableView;
+
 @end
 
 @implementation ViewController
-
+- (UITableView *)tableView
+{
+    if (_tableView == nil) {
+        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView = tableView;
+        [self.view addSubview:tableView];
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        
+    }
+    return _tableView;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"anno.plist" ofType:nil];
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSLog(@"%@",dict[@"Data"]);
-    self.dataArr = dict[@"Data"];
-    
-    self.mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
-    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.mapView.delegate = self;
-    [self.view addSubview:self.mapView];
-    
-    
-    
-    //add overlay
-   
-    [self initCoordinates];
-    
-    MAAnimatedAnnotation *anno = [[MAAnimatedAnnotation alloc] init];
-    anno.title = @"znb";
-    anno.coordinate = coords1[0];
-    self.annotation = anno;
-    [self.mapView setSelectedAnnotations:@[anno]];
-    [self.mapView addAnnotation:self.annotation];
-    
-    [self initButton];
-}
-- (void)initCoordinates {
-    
-    CLLocationCoordinate2D coords[self.dataArr.count];
-    
-    for (int i = 0; i < self.dataArr.count; i++) {
-        NSDictionary *dict= self.dataArr[i];
-        if (i==0) {
-            coords1[0].latitude = [dict[@"latitude"] doubleValue];
-            coords1[0].longitude = [dict[@"longitude"] doubleValue];
-        }
-        coords[i].latitude = [dict[@"latitude"] doubleValue];
-        coords[i].longitude = [dict[@"longitude"] doubleValue];
-
-    }
-    MAPolyline *polyline1 = [MAPolyline polylineWithCoordinates:coords count:sizeof(coords) / sizeof(coords[0])];
-    [self.mapView addOverlays:@[polyline1]];
-    
-    
+    [self tableView];
 }
 
-- (void)initButton
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIButton *button1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button1.frame = CGRectMake(10, 50, 70,25);
-    button1.backgroundColor = [UIColor redColor];
-    [button1 setTitle:@"Go" forState:UIControlStateNormal];
-    [button1 addTarget:self action:@selector(button1) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button1];
-    
-    UIButton *button2=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button2.frame = CGRectMake(10, 100,70,25);
-    button2.backgroundColor = [UIColor redColor];
-    [button2 setTitle:@"Stop" forState:UIControlStateNormal];
-    [button2 addTarget:self action:@selector(button2) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button2];
-}
-
-- (void)button1 {
-    
-    self.annotation.coordinate = coords1[0];
-    MAAnimatedAnnotation *anno = self.annotation;
-    CLLocationCoordinate2D coords[1];
-    __weak __typeof(anno) WeakAnno = anno;
-     NSDictionary *dict= self.dataArr[0];
-      anno.title = dict[@"speed"];
-    for (int i = 1; i < self.dataArr.count; i++) {
-        NSDictionary *dict= self.dataArr[i];
-        coords[0].latitude = [dict[@"latitude"] doubleValue];
-        coords[0].longitude = [dict[@"longitude"] doubleValue];
-        [anno addMoveAnimationWithKeyCoordinates:coords count:sizeof(coords) / sizeof(coords[0]) withDuration:1 withName:nil completeCallback:^(BOOL isFinished) {
-            WeakAnno.title = dict[@"speed"];
-        }];
+    // 0.定义一个重用标识
+    static NSString *ID = @"cell";
+    // 1.去缓存池中找可循环利用的cell
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    // 2.如果缓存池中没有可循环利用的cell,自己创建
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
-    
-    
-   
-}
-
-- (void)button2 {
-    for(MAAnnotationMoveAnimation *animation in [self.annotation allMoveAnimations]) {
-        [animation cancel];
-    }
-    
-    self.annotation.movingDirection = 0;
-    self.annotation.coordinate = coords1[0];
-}
-#pragma mark - <MAMapViewDelegate>
-- (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id <MAOverlay>)overlay
-{
-    if ([overlay isKindOfClass:[MAPolyline class]])
-    {
-        MAPolylineRenderer *polylineRenderer = [[MAPolylineRenderer alloc] initWithPolyline:overlay];
-        polylineRenderer.lineWidth    = 8.f;
-        [polylineRenderer loadStrokeTextureImage:[UIImage imageNamed:@"arrowTexture"]];
-        return polylineRenderer;
+    // 3.设置数据
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"点平滑移动";
+    }else if (indexPath.row == 1) {
         
+        cell.textLabel.text = @"自定义大头针以及泡泡View";
     }
     
-    return nil;
+    
+    return cell;
 }
 
-- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[MAPointAnnotation class]])
-    {
-        NSString *pointReuseIndetifier = @"myReuseIndetifier";
-        MAPinAnnotationView *annotationView = (MAPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
-        if (annotationView == nil)
-        {
-            annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation
-                                                             reuseIdentifier:pointReuseIndetifier];
-            
-            UIImage *imge  =  [UIImage imageNamed:@"userPosition"];
-            annotationView.image =  imge;
-        }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
         
-        annotationView.canShowCallout               = YES;
-        annotationView.animatesDrop                 = NO;
-        annotationView.draggable                    = NO;
-        annotationView.rightCalloutAccessoryView    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pop"]];
-    
-        [annotationView setSelected:YES animated:NO];
-        return annotationView;
+        [self.navigationController pushViewController:[MovingAnnotationViewController new] animated:YES];
+    }else if (indexPath.row == 1) {
+        [self.navigationController pushViewController:[CustomAnnotationViewController new] animated:YES];
     }
-    
-    return nil;
 }
 
 @end
